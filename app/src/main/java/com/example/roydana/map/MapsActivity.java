@@ -3,6 +3,7 @@ package com.example.roydana.map;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -72,6 +73,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
     MarkerOptions markerOptions = new MarkerOptions();
+    DatabaseHelper databaseHelper;
+
+    private static final String SMS_SENT_INTENT_FILTER = "com.example.roydana.map.sms_send";
+    private static final String SMS_DELIVERED_INTENT_FILTER = "com.example.roydana.map.sms_delivered";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         user = new User();
+
+        Toast.makeText(MapsActivity.this, user.getId()+ "\n"+ user.getEmail(), Toast.LENGTH_SHORT).show();
+
 
         // txt=(TextView)findViewById(R.id.txt);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -100,6 +108,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         mydb = new DBnum(this);
+        databaseHelper = new DatabaseHelper(this);
+        num1 = user.getNumber1();
+        num2 = user.getNumber2();
         Cursor number = mydb.getnum();
         if (number.getCount() == 0) {
             Toast.makeText(this, "nothingFound", Toast.LENGTH_SHORT).show();
@@ -112,7 +123,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             num2 = user.getNumber2();
 
         }
-        Toast.makeText(this, "number1:" + num1, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MapsActivity.this, user.getId()+ "\n"+ user.getEmail(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "number1:" + user.getNumber1(), Toast.LENGTH_SHORT).show();
 
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -356,6 +368,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     sendSMS(num1, "HElP ME" + "\n" + "ADDRESS:" + address + "\n" + geoUri);
 
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    Toast.makeText(this, num1, Toast.LENGTH_SHORT).show();
+
                     callIntent.setData(Uri.parse("tel:" + num1));
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
@@ -383,16 +397,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     private void sendSMS(String phoneNumber, String message) {
         try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Toast.makeText(getApplicationContext(), "SMS Sent!",
-                    Toast.LENGTH_LONG).show();
+
+            if(checkPermission(Manifest.permission.SEND_SMS))
+            {
+                PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(
+                        SMS_SENT_INTENT_FILTER), 0);
+                PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(
+                        SMS_DELIVERED_INTENT_FILTER), 0);
+                SmsManager smsManager=SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber,null,message,sentPI,deliveredPI);
+                Toast.makeText(getApplicationContext(), "SMS Sent!",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(MapsActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+
+
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
                     "SMS faild, please try again later!",
                     Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+    }
+
+    private boolean checkPermission(String sendSms) {
+
+        int checkpermission= ContextCompat.checkSelfPermission(this,sendSms);
+        return checkpermission== PackageManager.PERMISSION_GRANTED;
     }
     @Override
     protected void onResume() {

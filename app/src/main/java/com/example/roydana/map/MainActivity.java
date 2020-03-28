@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextInputEditText email, psw;
     PrefManager preferenceData;
+    User user;
 
 
     @Override
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        user = new User();
 
         initViews();
         initListeners();
@@ -178,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             preferenceData.setLogin(true);
             preferenceData.setMainScreenOpen(0);
+            Toast.makeText(MainActivity.this, user.getEmail(), Toast.LENGTH_LONG).show();
             Intent accountsIntent = new Intent(activity, Home.class);
             accountsIntent.putExtra("EMAIL", email.getText().toString().trim());
             emptyInputEditText();

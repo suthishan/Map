@@ -72,12 +72,14 @@ public class Splash extends AppCompatActivity implements
     private GpsStatusDetector mGpsStatusDetector;
     boolean mISGpsStatusDetector;
     int deviceApi = Build.VERSION.SDK_INT;
+    DatabaseHelper databaseHelper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        databaseHelper = new DatabaseHelper(this);
         preferenceData = new PrefManager(this);
         gpsReceiver = new GpsLocationReceiver();
 

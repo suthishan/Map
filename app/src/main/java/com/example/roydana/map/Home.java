@@ -135,6 +135,9 @@ public class Home extends AppCompatActivity {
                     user.setNumber1(num1.getText().toString());
                     user.setNumber2(num2.getText().toString());
                     databaseHelper.updateUser(user);
+                    Toast.makeText(Home.this, user.getEmail(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, user.getNumber1(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, user.getNumber2(), Toast.LENGTH_SHORT).show();
                     preferenceData.setLogin(true);
                     Toast.makeText(Home.this, " update number", Toast.LENGTH_SHORT).show();
                     Intent mi=new Intent (Home.this,MapsActivity.class);
