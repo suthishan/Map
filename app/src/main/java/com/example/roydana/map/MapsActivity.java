@@ -63,6 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String geoUri;
     String address;
     String num1, num2;
+    User user;
     DBnum mydb;
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
@@ -77,6 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final TextView t;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        user = new User();
 
         // txt=(TextView)findViewById(R.id.txt);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -91,7 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onShake() {
                 Toast.makeText(MapsActivity.this, "Shake!", Toast.LENGTH_SHORT).show();
                Intent callIntent = new Intent(Intent.ACTION_CALL);
-               callIntent.setData(Uri.parse("tel:" + num1));
+               callIntent.setData(Uri.parse("tel:" + user.getNumber1()));
                startActivity(callIntent);
                 v.vibrate(200);
 
@@ -106,8 +108,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (number.moveToFirst()) {
 
-            num1 = number.getString(0);
-            num2 = number.getString(1);
+            num1 = user.getNumber1();
+            num2 = user.getNumber2();
 
         }
         Toast.makeText(this, "number1:" + num1, Toast.LENGTH_SHORT).show();

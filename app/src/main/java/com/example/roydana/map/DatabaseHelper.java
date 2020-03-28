@@ -24,11 +24,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_mob = "mobile";
     private static final String COLUMN_USER_email = "email";
     private static final String COLUMN_USER_password = "password";
+    private static final String COLUMN_Num_1 = "number1";
+    private static final String COLUMN_Num_2 = "number2";
 
 
     private String CREATE_USER_TABLE = "CREATE TABLE " + Tablename + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_mob + " TEXT," + COLUMN_USER_email + " TEXT," + COLUMN_USER_password + " TEXT" +")";
+            + COLUMN_USER_mob + " TEXT," + COLUMN_USER_email + " TEXT," + COLUMN_USER_password + " TEXT,"
+            + COLUMN_Num_1 + " TEXT," + COLUMN_Num_2 + " TEXT"+")";
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + Tablename;
     public DatabaseHelper( Context context) {
         super(context,Databasename,null,DATABASE_VERSION);
@@ -139,6 +142,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_mob, user.getMobile());
         values.put(COLUMN_USER_email, user.getEmail());
         values.put(COLUMN_USER_password,user.getPassword());
+        values.put(COLUMN_Num_1, user.getNumber1());
+        values.put(COLUMN_Num_2,user.getNumber2());
 
         // updating row
         db.update(Tablename, values, COLUMN_USER_ID + " = ?",

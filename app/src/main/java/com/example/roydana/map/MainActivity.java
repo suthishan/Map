@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!inputValidation.isInputEditTextEmail(email, l2, getString(R.string.error_message_email))) {
             return;
         }
-        if (!inputValidation.isInputEditTextFilled(psw, l3, getString(R.string.error_message_email))) {
+        if (!inputValidation.isInputEditTextFilled(psw, l3, getString(R.string.error_message_password))) {
             return;
         }
 
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         } else {
-            Toast.makeText(MainActivity.this, "Error in Email & Password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "No User Found..!", Toast.LENGTH_SHORT).show();
         }
 
 

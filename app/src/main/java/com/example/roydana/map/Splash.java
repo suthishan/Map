@@ -74,7 +74,6 @@ public class Splash extends AppCompatActivity implements
     int deviceApi = Build.VERSION.SDK_INT;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,13 +101,13 @@ public class Splash extends AppCompatActivity implements
                                 String latitude = intent.getStringExtra(AppConstants.EXTRA_LATITUDE);
                                 String longitude = intent.getStringExtra(AppConstants.EXTRA_LONGITUDE);
                                 String mylocaton = latitude + "\t" + longitude;
-//                                    Log.d(LocationUpdateActivity.class.getSimpleName(),"my location "+mylocaton);
+                                    Log.d(Splash.class.getSimpleName(),"my location "+mylocaton);
                                 if (latitude != null && longitude != null) {
 //                            serverUpload.sendlocationtServer(mylocaton,latitude,longitude,LocationUpdateActivity.this);
                                     strAddress = getCompleteAddressString(latitude, longitude);
                                     preferenceData.setCurentAdress(strAddress);
-//                                        Log.d(LocationUpdateActivity.class.getSimpleName(),"my latitude "+latitude);
-//                                        Log.d(LocationUpdateActivity.class.getSimpleName(),"my longitude "+longitude);
+                                        Log.d(Splash.class.getSimpleName(),"my latitude "+latitude);
+                                        Log.d(Splash.class.getSimpleName(),"my longitude "+longitude);
 
                                     preferenceData.setCurentlatitude(latitude);
                                     preferenceData.setCurentlongitude(longitude);
@@ -128,7 +127,6 @@ public class Splash extends AppCompatActivity implements
             }
         }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void startStep1() {
 
         //Check whether this user has installed Google play service which is being used by Location updates.
@@ -146,11 +144,10 @@ public class Splash extends AppCompatActivity implements
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private Boolean startStep2(DialogInterface dialog) {
         if (preferenceData.getLogin()) {
             preferenceData.setMainScreenOpen(0);
-            Intent i = new Intent(Splash.this, MainActivity.class);
+            Intent i = new Intent(Splash.this, MapsActivity.class);
             startActivity(i);
         } else {
             ConnectivityManager connectivityManager

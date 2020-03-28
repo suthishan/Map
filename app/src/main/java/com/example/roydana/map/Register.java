@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.example.roydana.map.helpers.InputValidation;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
-ImageButton back;
-DatabaseHelper mydb;
+
+    private final AppCompatActivity activity = Register.this;
+    ImageButton back;
+    DatabaseHelper mydb;
+
     AppCompatButton create;
 
     SharedPreferences sharedPreferences;
@@ -61,6 +64,7 @@ DatabaseHelper mydb;
     private void initListeners() {
         ln.setOnClickListener(this);
         back.setOnClickListener(this);
+        create.setOnClickListener(this);
     }
 
     private void initObjects() {
@@ -99,21 +103,22 @@ DatabaseHelper mydb;
     }
 
         private void postDataToSQLite() {
-        if (!inputValidation.isInputEditTextFilled(na, l4, getString(R.string.error_message_name))) {
-            return;
-        }
         if (!inputValidation.isInputEditTextFilled(email, l2, getString(R.string.error_message_email))) {
-            return;
+           return;
         }
         if (!inputValidation.isInputEditTextEmail(email, l2, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextEmail(mob, l5, getString(R.string.error_message_mobile))) {
             return;
         }
         if (!inputValidation.isInputEditTextFilled(psw, l3, getString(R.string.error_message_password))) {
             return;
         }
+        if (!inputValidation.isInputEditTextFilled(na, l4, getString(R.string.error_message_name))) {
+            return;
+        }
+        if (!inputValidation.isInputEditTextFilled(mob, l5, getString(R.string.error_message_mobile))) {
+            return;
+        }
+
 
         if (!mydb.checkUser(email.getText().toString().trim())) {
 
@@ -124,9 +129,11 @@ DatabaseHelper mydb;
 
             mydb.addUser(user);
             Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+            Intent li=new Intent(Register.this,MainActivity.class);
+            startActivity(li);
             emptyInputEditText();
         } else {
-            Toast.makeText(Register.this, "Registration Failed.. Please Try Again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Register.this, "Registration Failed.. Same User already exist", Toast.LENGTH_SHORT).show();
         }
 
     }
