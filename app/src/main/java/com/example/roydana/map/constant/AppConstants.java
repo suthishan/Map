@@ -12,17 +12,7 @@ import java.util.ArrayList;
 
 public class AppConstants {
 
-    public static int BOTTTOM_MENU_ITEM = 0;
-    public static boolean REFERAL_STATUS = false;
-    public static String REFERAL_REASON = "";
-    public static String REFERAL_DIAGONOSIS = "";
-    public static String REFERAL_TO = "";
-    public static String REFERAL_FACILITY = "";
-    public static String REFERAL_BY = "";
-    public static String REFERAL_TIME = "";
-    public static String REFERAL_DATE = "";
-    public static String REFERAL_ID = "";
-    public static boolean CREATE_NEW_REFRAL = false;
+
 
     public  static  boolean isMainActivityOpen=true;
 
@@ -48,15 +38,16 @@ public class AppConstants {
 
     public  static boolean BACK_BUTTON_GONE=false;
 
-    public static final String PICME_ID = "picme_id";
-    public static final String M_ID = "m_id";
-    public static final String PHC_ID = "phcId";
-    public static final String VHN_ID = "vhnId";
-    public static final String AWW_ID = "awwId";
-    public static final String MOTHER_NAME = "name";
-    public static final String MOTHER_AGE = "age";
-    public static final String MOTHER_STATUS = "status";
-    public static final String DELIVERY_ID = "did";
+    public static final String NAME = "name";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
+    public static final String MOBILE = "mobile";
+
+    public static final String NUMBER_1= "num1";
+    public static final String NUMBER_2= "num2";
+
+
+
 
     public static String PICME_ID_NUM = "0";
 

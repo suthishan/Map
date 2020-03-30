@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private User user;
     TextInputLayout l2,l3,l4,l5;
     TextInputEditText email,psw,na,mob;
+    PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         inputValidation = new InputValidation(this);
         mydb = new DatabaseHelper(this);
         user = new User();
+        prefManager = new PrefManager(this);
     }
 
     @Override
@@ -128,6 +131,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             user.setMobile(mob.getText().toString().trim());
 
             mydb.addUser(user);
+            prefManager.storeUserInfo(na.getText().toString().trim(),psw.getText().toString().trim(),
+                    email.getText().toString().trim(),mob.getText().toString().trim());
+            Log.e("Email",user.getEmail());
             Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
             Intent li=new Intent(Register.this,MainActivity.class);
             startActivity(li);

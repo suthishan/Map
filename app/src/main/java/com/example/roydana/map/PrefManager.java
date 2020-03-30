@@ -2,6 +2,7 @@ package com.example.roydana.map;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.roydana.map.constant.AppConstants;
 
@@ -48,6 +49,7 @@ public class PrefManager {
         pref.edit().putString(AppConstants.CURENT_ADDRESS, strAddress).commit();
     }
 
+
     public void setCurentlatitude(String latitude) {
         pref.edit().putString(AppConstants.CURENT_LAT, latitude).commit();
     }
@@ -73,6 +75,46 @@ public class PrefManager {
     public String getMainScreenOpen() {
         return pref.getString(AppConstants.isMainActivityOpen_Count,"");
 
+    }
+
+    public void storeUserInfo(String name,String password,String email, String mobile){
+        pref.edit().putString(AppConstants.NAME, name).commit();
+        pref.edit().putString(AppConstants.PASSWORD, password).commit();
+        pref.edit().putString(AppConstants.EMAIL, email).commit();
+        pref.edit().putString(AppConstants.MOBILE, mobile).commit();
+
+        Log.e("NAME",pref.getString(AppConstants.NAME,""));
+        Log.e("PASSWORD",pref.getString(AppConstants.PASSWORD,""));
+        Log.e("EMAIL",pref.getString(AppConstants.EMAIL,""));
+        Log.e("MOBILE",pref.getString(AppConstants.MOBILE,""));
+    }
+
+    public String getname(){
+        return pref.getString(AppConstants.NAME,"");
+    }
+    public String getEMAIL(){
+        return pref.getString(AppConstants.EMAIL,"");
+    }
+    public String getMOBILE(){
+        return pref.getString(AppConstants.MOBILE,"");
+    }
+    public String getPASSWORD(){
+        return pref.getString(AppConstants.PASSWORD,"");
+    }
+
+    public void setNumber1(String number1) {
+        pref.edit().putString(AppConstants.NUMBER_1, number1).commit();
+    }
+    public void setNumber2(String number2) {
+        pref.edit().putString(AppConstants.NUMBER_2, number2).commit();
+    }
+
+    public String getNumber1(){
+        return pref.getString(AppConstants.NUMBER_1,"");
+    }
+
+    public String getNumber2(){
+        return pref.getString(AppConstants.NUMBER_2,"");
     }
 
 }

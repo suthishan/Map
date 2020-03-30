@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -180,7 +181,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             preferenceData.setLogin(true);
             preferenceData.setMainScreenOpen(0);
-            Toast.makeText(MainActivity.this, user.getEmail(), Toast.LENGTH_LONG).show();
             Intent accountsIntent = new Intent(activity, Home.class);
             accountsIntent.putExtra("EMAIL", email.getText().toString().trim());
             emptyInputEditText();

@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -132,12 +133,15 @@ public class Home extends AppCompatActivity {
              
                 boolean is=ndb.updatenum(num1.getText().toString(),num2.getText().toString());
                 if(is){
+                    preferenceData.setNumber1(num1.getText().toString());
+                    preferenceData.setNumber2(num2.getText().toString());
                     user.setNumber1(num1.getText().toString());
                     user.setNumber2(num2.getText().toString());
+
                     databaseHelper.updateUser(user);
-                    Toast.makeText(Home.this, user.getEmail(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, user.getNumber1(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Home.this, user.getNumber2(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, preferenceData.getEMAIL(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, preferenceData.getNumber1(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, preferenceData.getNumber2(), Toast.LENGTH_SHORT).show();
                     preferenceData.setLogin(true);
                     Toast.makeText(Home.this, " update number", Toast.LENGTH_SHORT).show();
                     Intent mi=new Intent (Home.this,MapsActivity.class);

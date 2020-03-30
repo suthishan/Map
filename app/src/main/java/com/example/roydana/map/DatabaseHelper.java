@@ -226,6 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         int cursorCount = cursor.getCount();
 
+
         cursor.close();
         db.close();
         if (cursorCount > 0) {

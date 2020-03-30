@@ -33,12 +33,15 @@ User user;
 
 ImageButton upd;
 String name;
+
+PrefManager prefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alertnumreg);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        prefManager = new PrefManager(this);
         user = new User();
         num1=(EditText)findViewById(R.id.m1);
         num2=(EditText)findViewById(R.id.m2);
@@ -108,6 +111,10 @@ String name;
                 }
                 else {
                     boolean re = ndb.insertnum(num1.getText().toString(), num2.getText().toString());
+                    prefManager.setNumber1(num1.getText().toString());
+
+                    prefManager.setNumber2(num2.getText().toString());
+
                     user.setNumber1(num1.getText().toString());
                     user.setNumber2(num2.getText().toString());
                     if (re) {
